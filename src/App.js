@@ -1,24 +1,40 @@
 import logo from './logo.svg';
 import './App.css';
+import React, {useState} from "react";
+
+function Button(props){
+  const BtnClick=()=>{
+    props.onClickAct(props.newVal);
+  }
+  return(
+    <button onClick={BtnClick}>{props.newVal}</button>
+  );
+}
+
+function Display(props){
+  return(
+    <div style={{backgroundColor:"gray", color:"white", width:"100px", textAlign:"center"}}>{props.displayValue}</div>
+  );
+}
 
 function App() {
+  const newVal1="10";
+  const newVal2="-100";
+  const newVal3="25";
+
+  const [displayValue,setDisplayValue]=useState("0");
+
+  const stateFunc=(newVal)=>{
+    setDisplayValue(parseInt(displayValue)+parseInt(newVal));
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Button newVal={newVal1} onClickAct={stateFunc}/>
+      <Button newVal={newVal2} onClickAct={stateFunc}/>
+      <Button newVal={newVal3} onClickAct={stateFunc}/>
+      <Display displayValue={parseInt(displayValue)}/>
+    </>
   );
 }
 
